@@ -1,4 +1,4 @@
-number = int ( input ( 'Введите трехзначное число:'))
-second_number= number % 100
-sum = second_number % 10
-print(sum)
+number = int ( input ( 'Введите трехзначное число:'))#запрос у пользователя трехзначного числа
+second_number= number % 100#деление на остаток
+sum = second_number % 10#деление на остаток 
+print(sum)#вывод второго числа
