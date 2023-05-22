@@ -7,7 +7,8 @@ user_input1= int ( input ( 'Введите число:'))
 user_input2= int ( input ( 'Введите число:'))
 
 aver=(user_input1+user_input2)/2
-print(aver)
+print(aver)  # VN: при выводе поясняйте пользователю, что именно означает это число
+             # и так во всех print далее
 # Task 3
 user_input_kub_dlina = int ( input ( 'Введите длину квадрата:'))
 user_input_kub_dlina **=2
@@ -32,7 +33,7 @@ print(x)
 # Task 7
 hour = int ( input ( 'Введите час:'))
 minute =  int ( input ( 'Введите минуты:'))
-next_hour =24- hour
+next_hour =24- hour   # VN: здесь ошибка. Если сейчас 12:12, то до конца дня осталось 11ч 48мин
 next_minute= 60-minute
 print(next_hour,next_minute)
 # Task 8
@@ -45,8 +46,9 @@ print(sum)
 number = int ( input ( 'Введите пятизначное число:'))
 a = number % 10
 b = str(a)
-sum = b + str(number)
-print(int(sum))
+sum = b + str(number)  # VN: здесь проблема - последняя цифра остаётся
+print(int(sum))        # кроме того, задачу нужно решить полностью математически
+                       # и вы уже наполовину это сделали)
 
 # Task 10 
 sales = int ( input ( 'Введите сумму продаж за месяц :'))
