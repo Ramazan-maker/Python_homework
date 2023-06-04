@@ -7,6 +7,7 @@ user_input = int(user_input)
 #     message = 'Вы ввели неверные данные!'
 
 # else:
+# VN: в этой задаче можно вообще не преобразовывать в int, а проверять как текст: if user_input == "0" и тд.
 if 0 == user_input:
     print(")")
 elif 1== user_input:
