@@ -3,27 +3,24 @@
 Если в функцию передали 1 параметр, то она вычисляет площадь квадрата.
 """
 
-
-
-def calculate_area():
-    length = input("Введите длину прямоугольника: ")
-    width = input("Введите ширину прямоугольника: ")
-    area = 0  # Инициализируем переменную area
-
-    try:
-        length = int(length)
-        width = int(width)
-    except ValueError:
-        print("Ошибка! Вы ввели неверные данные!")
+def calculate_area(length, width=None):
+    if width is None:
+        area = length ** 2
     else:
-        if width is None:
-            area = length ** 2
-        else:
-            area = length * width
+        area = length * width
     return area
 
-result = calculate_area()
-# if result is not None:
-#     print("Площадь прямоугольника:", result)
-print(result)
+length = input("Введите длину прямоугольника: ")
+width = input("Введите ширину прямоугольника (если оставить пустым, будет вычислена площадь квадрата): ")
+
+try:
+    length = int(length)
+    if width:
+        width = int(width)
+except ValueError:
+    print("Ошибка! Вы ввели неверные данные!")
+else:
+    result = calculate_area(length, width)
+    print(result)
+
 #Виталий здраствуйте как здесь реализовать это задачу?
