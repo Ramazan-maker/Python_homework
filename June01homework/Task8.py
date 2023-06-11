@@ -8,6 +8,7 @@ def format_time(s):
 seconds = input("Введите количество секунд: ")
 try:
     s= int(seconds)
+# VN: Здесь исключение ValueError
 except TypeError:
     print("Некорректные данные! Пожалуйста, введите целые числа для часов, минут и секунд.")
 else:
