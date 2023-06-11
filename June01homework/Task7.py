@@ -11,6 +11,7 @@ try:
     hours = int(hours)
     minutes = int(minutes)
     seconds = int(seconds)
+# VN: Здесь исключение ValueError
 except TypeError:
     print("Некорректные данные! Пожалуйста, введите целые числа для часов, минут и секунд.")
 else:
