@@ -1,36 +1,46 @@
-class Recipe:
-    def __init__(self, name, ingredients, preparation_time, cuisine, difficulty_level, is_vegetarian):
-        self.name = name
-        self.ingredients = ingredients
-        self.preparation_time = preparation_time
-        self.cuisine = cuisine
-        self.difficulty_level = difficulty_level
-        self.is_vegetarian = is_vegetarian
-
-    def cook(self):
-        print(f"Recipe for {self.name} is being cooked.")
-
-    def add_ingredient(self, ingredient):
-        self.ingredients.append(ingredient)
-        print(f"Added {ingredient} to the recipe.")
-
-    def remove_ingredient(self, ingredient):
-        self.ingredients.remove(ingredient)
-        print(f"Removed {ingredient} from the recipe.")
-
-    def check_difficulty(self):
-        if self.difficulty_level == "Easy":
-            print("This recipe is easy to make.")
-        elif self.difficulty_level == "Medium":
-            print("This recipe has a medium difficulty level.")
+class Room:
+    def __init__(self, room_number, capacity, price_per_night):
+        self.room_number = room_number
+        self.capacity = capacity
+        self.price_per_night = price_per_night
+        self.is_booked = False
+    
+    def get_room_number(self):
+        return self.room_number
+    
+    def get_capacity(self):
+        return self.capacity
+    
+    def get_price_per_night(self):
+        return self.price_per_night
+    
+    def is_available(self):
+        return not self.is_booked
+    
+    def book_room(self):
+        if not self.is_booked:
+            self.is_booked = True
+            return True
         else:
-            print("This recipe is difficult to make.")
+            return False
+    
+    def cancel_booking(self):
+        if self.is_booked:
+            self.is_booked = False
+            return True
+        else:
+            return False
+room = Room("101", 2, 100)
 
+print("Room number:", room.get_room_number())
+print("Capacity:", room.get_capacity())
+print("Price per night:", room.get_price_per_night())
+print("Is available:", room.is_available())
 
-recipe1 = Recipe("Spaghetti Bolognese", ["Pasta", "Tomato Sauce", "Ground Beef", "Onion"], 30, "Italian", "Medium", False)
-recipe2 = Recipe("Vegetable Stir-Fry", ["Broccoli", "Carrots", "Bell Peppers", "Soy Sauce"], 20, "Asian", "Easy", True)
+booked = room.book_room()
+print("Booking successful:", booked)
+print("Is available:", room.is_available())
 
-recipe1.cook()
-recipe1.add_ingredient("Garlic")
-recipe2.remove_ingredient("Carrots")
-recipe2.check_difficulty()
+canceled = room.cancel_booking()
+print("Cancellation successful:", canceled)
+print("Is available:", room.is_available())

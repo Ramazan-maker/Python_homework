@@ -1,30 +1,54 @@
+from random import randint
 class Order:
-    def __init__(self, order_id, customer_name, total_amount, status, payment_method, shipping_address):
-        self.order_id = order_id
-        self.customer_name = customer_name
-        self.total_amount = total_amount
-        self.status = status
-        self.payment_method = payment_method
-        self.shipping_address = shipping_address
+    id=0
+    def __init__(self,hotel_name,room,date_from,date_to,visitor_name,visitor_iin):
+        self.hotel_name = hotel_name
+        self.id = randint(100000,999999)
+        self.room = room
+        self.date_from = date_from
+        self.date_to = date_to
+        self.visitor_name = visitor_name
+        self.visitor_iin = visitor_iin
+        self.is_canceled = False
+        self.is_checked_in = False
+        self.is_checked_out = False
+    
+    def show_info(self):
+        info = f"""
+        Name:{self.visitor_name}
+        IIN:{self.visitor_iin}
+        Hotel name:{self.hotel_name},
+        Room:{self.room}
+        Date from:{self.date_from}
+        Date To:{self.date_to}
+        """
+        return info
 
-    def place_order(self):
-        print("Order placed.")
+    def update_dates(self, new_date_from, new_date_to):
+        self.date_from = new_date_from
+        self.date_to = new_date_to
 
-    def cancel_order(self):
-        print("Order cancelled.")
+    def change_room(self, new_room):
+        self.room = new_room
+    def check_in(self):
+        self.is_checked_in = True
 
-    def update_status(self, new_status):
-        print(f"Order status updated to {new_status}.")
+    def check_out(self):
+        self.is_checked_out = True
+    
+order = Order("Отель XYZ", "101", "2023-06-25", "2023-06-30", "Иван Иванов", "123456789012")
+print(order.show_info())
+order.update_dates("2023-07-01", "2023-07-05")
+print("Новые даты заезда и выезда:", order.date_from, order.date_to)
 
-    def calculate_discounted_price(self, discount_percentage):
-        discounted_price = self.total_amount * (1 - discount_percentage / 100)
-        print(f"Discounted price: {discounted_price}.")
+# Изменение номера комнаты
+order.change_room("202")
+print("Новый номер комнаты:", order.room)
 
+# Заселение
+order.check_in()
+print("Статус заселения:", order.is_checked_in)
 
-order1 = Order(12345, "John Doe", 1000, "Pending", "Credit Card", "123 Street, City")
-order2 = Order(54321, "Jane Smith", 500, "Delivered", "PayPal", "456 Avenue, Town")
-
-order1.place_order()
-order1.calculate_discounted_price(10)
-order2.update_status("Returned")
-order2.cancel_order()
+# Выселение
+order.check_out()
+print("Статус выселения:", order.is_checked_out)
