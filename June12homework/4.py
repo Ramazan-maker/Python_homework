@@ -25,6 +25,7 @@ class Employee:
         else:
             print('Employee not hired')
     def dismiss_employee(self):
+        #self.kpi
         kpi = (self.sale/self.plan)*100
         if self.kpi <= self.plan:
             print("Employee dismissed.")
