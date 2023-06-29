@@ -11,13 +11,18 @@ class Hotel:
         for room in self.rooms:
             if room.number == room_number:
                 return room.price * (date_to - date_from).days
+        return None
 
-    def buy_order(self, bedrooms, date_from, date_to, visitor):
+    def buy_order(self, date_from, date_to, visitor):
         for room in self.rooms:
-            if room.capacity == bedrooms:
-                if not any([date_from < order[1] < date_to or date_from < order[2] < date_to for order in room.orders]):
-                    room.orders.append((visitor, date_from, date_to))
-                    return True
+            if not any(
+                    [
+                        date_from < order.date_from < date_to or date_from < order.date_to < date_to
+                        for order in room.orders
+                    ]
+            ):
+                room.orders.append(Order(self.name, room.number, date_from, date_to))
+                return True
         return False
 
     def check_in(self, visitor, date):

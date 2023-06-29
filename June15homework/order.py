@@ -13,7 +13,7 @@ class Order ():
         self.visitor_iin = ""
 
 
-    def get_visitor_full_name(self,person):
+    def get_visitor_full_name(self, person):
         self.visitor_name = f"{person.first_name} {person.last_name}"
         self.visitor_iin = person.iin
     def show_info(self):

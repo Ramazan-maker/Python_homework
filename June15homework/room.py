@@ -3,11 +3,11 @@ import datetime
 
 class Room():
 
-    def __init__(self,number,bedrooms,order,capacity):
+    def __init__(self,number,bedrooms,order):
         self.number = order.room
         self.bedrooms = 2 if number % 2 == 0 else 1
-        self.order = order
-        self.capacity = capacity
+        self.orders = order
+
     def is_empty(self):
         date_from = self.order.date_from
         date_to = self.order.date_to

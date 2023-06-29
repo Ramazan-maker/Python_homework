@@ -27,13 +27,13 @@ room_price = hotel.get_price(room_number, date_from, date_to)
 print("Цена комнаты:", room_price)
 
 # Вызов метода buy_order
-bedrooms = 2
 visitor = person  # Предположим, что объект person представляет посетителя гостиницы
-order_success = hotel.buy_order(bedrooms, date_from, date_to, visitor)
+order_success = hotel.buy_order(date_from, date_to, visitor)
 if order_success:
     print("Бронирование успешно")
 else:
     print("Не удалось забронировать комнату")
+
 
 
 # Вызов метода check_in
@@ -44,7 +44,7 @@ else:
     print("Не удалось заселиться в отель")
 
 # Вызов метода check_out
-check_out_success = hotel.check_out(visitor, date)
+check_out_success = hotel.check_out(visitor,date)
 if check_out_success:
     print("Выселение успешно")
 else:
