@@ -15,6 +15,7 @@ if __name__ == "__main__":
     kassa = Kassa()
     tmp_train = Train("Астана", "Шымкент", "2023-06-16 20:00",kassa)
     kassa.buy_ticket(dude, "Астана", "Шымкент", tmp_train)
+    # VN:            надо убрать этот аргумент ^^^^^^^^^^
     tmp_train.go(dude)
 
 

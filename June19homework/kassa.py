@@ -11,6 +11,9 @@ class Kassa:
         return price
     
     def buy_ticket(self, passenger, source, destination, train):
+        # VN:        из метода надо убрать этот аргумент ^^^^^
+        # И тогда в первую очередь нужно перебрать все self.trains, и продавать билет
+        # только если подходящий поезд из source в destination нашёлся в списке 
         money = passenger.pay(self.get_price(source, destination))
         if money > 0:
             self.kassa_balance += money
