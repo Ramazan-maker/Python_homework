@@ -28,6 +28,7 @@ class Hotel:
     def check_in(self, visitor, date):
         for room in self.rooms:
             for order in room.orders:
+                # VN:         ^^^^^^ нет такого свойства у экземпляров класса Room
                 if order[0] == visitor and order[1] <= date <= order[2]:
                     room.orders.remove(order)
                     return True

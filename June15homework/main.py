@@ -12,6 +12,7 @@ order.show_info()
 
 
 # Создание экземпляра класса Hotel
+# VN: Здесь программа падает - не хватает ещё одного аргумента: capacity. См. конструктор класса Room
 rooms = [
     Room(101, 2, order),  # Первая комната
     Room(102, 1, order),  # Вторая комната
@@ -38,6 +39,7 @@ else:
 
 # Вызов метода check_in
 check_in_success = hotel.check_in(visitor, date)
+# VN:               этой переменной нет:   ^^^^  , и программа здесь падает
 if check_in_success:
     print("Заселение успешно")
 else:
