@@ -23,5 +23,15 @@ if __name__ == "__main__":
     if not kassa.buy_ticket(dude, "Алматы", "Ташкент", tmp_train1):
         print("Билет недоступен")
     tmp_train1.go(dude)
+
+    print("Ниже магический метод:")
+    dude5 = Person("Jonh", "Doe", "1994-06-25")
+    print(dude5)  # Вывод: Person: Jonh Doe
+
+    tmp_ticket3 = Ticket(23, "Алматы", "Ташкент", "2023-06-16 07:59", dude5)
+    print(repr(tmp_ticket3))  # Вывод: Ticket(train_id=23, source=Алматы, destination=Ташкент)
+
+    tmp_train3 = Train("Алматы", "Шымкент", "2023-06-16 20:00",kassa)
+    print(repr(tmp_train3))  # Вывод: Train(source=Алматы, destination=Шымкент, datetime=2023-06-16 20:00, number=<случайное число>)
 else:
     print(__name__)

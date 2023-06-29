@@ -25,7 +25,9 @@ class Train:
         else:
             print("У вас нет билета")
 
+    #Magical metod
+    def __repr__(self):
+        return f"Train(source={self.source}, destination={self.destination}, datetime={self.datatime}, number={self.number})"
 
-            
 if __name__ == "__main__":
     print("Train")

@@ -29,6 +29,13 @@ class Person:
             return amount
         return 0
 
+    #Magical metod
+  
+    def __str__(self):
+        return f"Person: {self.first_name} {self.last_name}"
+    """
+    __str__, который будет возвращать строковое представление объекта Person при вызове функции str() или при преобразовании объекта в строку.
+    """
 if __name__ == "__main__":
     print("Person")
 # else :

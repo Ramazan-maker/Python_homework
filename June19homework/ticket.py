@@ -28,6 +28,11 @@ class Ticket:
         Passenger: {self.passenger.first_name} {self.passenger.last_name},
         IIN: {self.passenger.iin}, Birth Date: {self.passenger.birth_date}"""
         print(info)
-
+    #Magical metod
+    def __repr__(self):
+        return f"Ticket(train_id={self.train_id}, source={self.source}, destination={self.destination})"
+    """
+    В классе Ticket добавим метод __repr__, который будет возвращать официальное представление объекта Ticket при вызове функции repr().
+    """
 if __name__ == "__main__":
     print("Ticket")
