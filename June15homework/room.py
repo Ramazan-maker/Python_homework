@@ -1,19 +1,28 @@
 from order import Order
-import datetime
+from datetime import datetime, timedelta
 
-class Room():
-
-    def __init__(self,number,bedrooms,order):
-        self.number = order.room
+class Room:
+    number = 0
+    bedrooms = 0
+    order: Order = None
+    def __init__(self, number):
+        self.number = number
         self.bedrooms = 2 if number % 2 == 0 else 1
-        self.orders = order
+        self.order = None
 
-    def is_empty(self):
-        date_from = self.order.date_from
-        date_to = self.order.date_to
-        if date_from > self.order.date_to or date_to < self.order.date_from:
+    def is_empty(self, date=None):
+        if date is None:
+            date = datetime.now().date()
+        if self.order is None:
             return True
-        return False
+        return not (self.order.date_from <= date <= self.order.date_to)
+
+    def show_info(self):
+        info = f"""Комната: {self.number}
+        Кровати: {self.bedrooms}
+        Пусто: {self.is_empty()}"""
+        print(info)
+
 
 
 

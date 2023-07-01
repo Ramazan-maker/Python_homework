@@ -6,18 +6,20 @@ class Person ():
     birth_date = ""
     first_name = ""
     last_name = ""
-    ticket = False
+    order = None
 
     def __init__(self, first_name, last_name, birth_date):
         self.first_name = first_name
         self.last_name = last_name
         self.birth_date = birth_date
         self.iin = randint(100000000000, 999999999999)
+        self.balance = 0
+        self.order = None
 
     def show_info(self):
-        info = f"""Person: {self.first_name} {self.last_name},
-        Date of Birth: {self.birth_date},
-        IIN: {self.iin}, Balance: {self.balance}"""
+        info = f"""Человек: {self.first_name} {self.last_name}
+        Дата рождения: {self.birth_date}
+        ИИН: {self.iin}, Баланс: {self.balance}"""
         print(info)
 
     def earn(self, amount):
@@ -28,4 +30,3 @@ class Person ():
             self.balance -= amount
             return amount
         return 0
-
