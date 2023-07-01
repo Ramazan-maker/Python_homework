@@ -1,33 +1,27 @@
 from random import randint
-from ticket import Ticket
-from kassa import Kassa
 
 class Train:
     
- 
-    def __init__(self, source, destination, datatime, kassa):
-        self.source = source
+    def __init__ (self, kassa, source, destination, datetime):
+        self.source = source 
         self.destination = destination
-        self.datatime = datatime
+        self.datetime = datetime
         self.number = randint(1, 100)
-        self.kassa = kassa  # Сохранение экземпляра kassa как атрибута класса
-        self.kassa.register_train(self)  # Использование атрибута kassa для вызова метода register_train()
-
+        self.kassa = kassa
+        kassa.register_train(self)
     def go(self, passenger):
-        if passenger.ticket:
-            if passenger.ticket.datetime == self.datatime and \
-                passenger.ticket.train_id == self.number:
-                print(f"Вы поехали из {self.source} в {self.destination}")
-                print("Вы приехали")
-                passenger.ticket = False
-            else:
-                print("У вас нет билета на этот поезд!")
+        ticket = self.kassa.get_ticket(passenger, self.number, self.datetime)
+        if ticket:
+            print(f'Вы поехали из {self.source} в {self.destination}\nПриехали')
+            self.kassa.delete_ticket(ticket)
         else:
-            print("У вас нет билета")
+            print(f"У вас нет билета на поезд из {self.source} в {self.destination}")
 
-    #Magical metod
-    def __repr__(self):
-        return f"Train(source={self.source}, destination={self.destination}, datetime={self.datatime}, number={self.number})"
+    def __sub__(self, other):
+        if isinstance(other, Train):
+            return len(self.destination) - len(other.source)
 
+
+            
 if __name__ == "__main__":
     print("Train")

@@ -4,35 +4,34 @@ from kassa import Kassa
 from ticket import Ticket
 
 if __name__ == "__main__":
-
     dude = Person("Ilon", "Kask", "1994-06-25")
     dude.earn(25000)
-    dude.pay(3500)
     dude.show_info()
-    #случай, где получается купить билет на подходящий поезд
-    tmp_ticket = Ticket(23, "Алматы", "Ташкент", "2023-06-16 07:59", dude)
-    tmp_ticket.show()
+
+    alex = Person("Alex", "Boldwin", "1954-06-25")
+    alex.earn(95000)  # Маг метод
+    alex.show_info()
+
     kassa = Kassa()
-    tmp_train = Train("Астана", "Шымкент", "2023-06-16 20:00",kassa)
-    kassa.buy_ticket(dude, "Астана", "Шымкент", tmp_train)
-    # VN:            надо убрать этот аргумент ^^^^^^^^^^
-    tmp_train.go(dude)
+    train_to_chile = Train(kassa, 'Алматы', "Сантьяго", '2023-06-16 20:00')
+    train_to_uruguay = Train(kassa, 'Алматы', "Монтевидео", '2023-06-26 09:00')
 
+    kassa.buy_ticket(dude, 'Алматы', 'Сантьяго')
+    kassa.buy_ticket(dude, 'Алматы', 'Монтевидео')
 
-    #* случай, где нет подходящего поезда и билет купить нельзя
-    tmp_train1 = Train("Астана", "Шымкент", "2023-06-16 20:00",kassa)
-    if not kassa.buy_ticket(dude, "Алматы", "Ташкент", tmp_train1):
-        print("Билет недоступен")
-    tmp_train1.go(dude)
+    kassa.buy_ticket(alex, 'Алматы', 'Сантьяго')
+    kassa.buy_ticket(alex, 'Алматы', 'Норильск')
 
-    print("Ниже магический метод:")
-    dude5 = Person("Jonh", "Doe", "1994-06-25")
-    print(dude5)  # Вывод: Person: Jonh Doe
+    print(kassa.tickets)
+    train_to_chile.go(dude)
+    print(kassa.tickets)
+    kassa.buy_ticket(dude, 'Алматы', 'Нью-Йорк')
 
-    tmp_ticket3 = Ticket(23, "Алматы", "Ташкент", "2023-06-16 07:59", dude5)
-    print(repr(tmp_ticket3))  # Вывод: Ticket(train_id=23, source=Алматы, destination=Ташкент)
+    train_diff = train_to_chile.__sub__(train_to_uruguay)  # маг метод
+    print(f"Расстояние от Алматы до Сантяьго: {train_diff} км")
+    train_diff = train_to_uruguay.__sub__(train_to_chile)
+    print(f"Расстояние от Алматы до Монтевидео: {train_diff} км")
 
-    tmp_train3 = Train("Алматы", "Шымкент", "2023-06-16 20:00",kassa)
-    print(repr(tmp_train3))  # Вывод: Train(source=Алматы, destination=Шымкент, datetime=2023-06-16 20:00, number=<случайное число>)
-else:
-    print(__name__)
+    ticket = Ticket(86, 'Алматы', 'Монтевидео', '2023-06-26 09:00', alex)
+    result = ticket.__mul__(3)  # маг  метод
+    print(f"Стоимость билета с учетом количества вагонов: {result} тг")
