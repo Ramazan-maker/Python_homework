@@ -26,14 +26,43 @@ def spl(text, maxlen):
 #Исправить регистр символов - предложения должны начинаться с большой буквы.
 
 def fix_case(text):
-    return '.'.join(map(str.capitalize, text.split('. ')))
-#﻿﻿﻿﻿Удалить лишние пробелы между словами и в конце строк.
+    sentences = text.split('.')
 
-def delete_space(text):
-    words = text.split()
-    words = list(filter(None,words))
-    new_text = " " .join(words)
-    return new_text
+    final_sentences = []
+    # обрабатываем каждое предложение
+    for sentence in sentences:
+    # удаляем пробелы в конце и начале предложения
+        sentence = sentence.strip()
+
+    # если предложение пустое - переходим к следующему
+    if not sentence:
+        continue  
+    
+    # переводим первый символ предложения в верх. регистр
+    sentence = sentence.capitalize()
+
+    final_sentences.append(sentence)
+
+    # склеимаем предложения обратно
+    final_text = '. '.join(final_sentences)
+
+    # добавляем точку в конец
+    final_text = final_text  + '.'
+    
+    return final_text
+
+
+#﻿﻿﻿﻿Удалить лишние пробелы между словами и в конце строк.
+def remove_extra_spaces(text):
+    # Удаление лишних пробелов между словами
+    text = ' '.join(text.split())
+
+    # Удаление пробелов в конце строк
+    lines = text.split('\n')
+    lines = [line.rstrip() for line in lines]
+    text = '\n'.join(lines)
+
+    return text
 # Выделить начало абзаца - четырьмя пробелами.
 
 def capitalize_sentences_4spaces(text):
@@ -82,7 +111,7 @@ def strip_empty_lines(text):
     return new_text
 
 template = spl(text,max_line_lenght)
-template2 = delete_space(text)
+template2 = remove_extra_spaces(text)
 template3 = fix_case(text)
 template4 = capitalize_sentences_4spaces(text)
 template5 = align_text(text,max_line_lenght)
