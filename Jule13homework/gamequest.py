@@ -1,269 +1,60 @@
-# #!/usr/bin/env python
-# import time
-# import readline
-
-
-# with open('kolobok.json','r',encoding='utf-8') as fileName:
-#     if not fileName:
-#         print("Не указан файл игры.")
-#         exit(1)
-
-
-# game_end = 0
-# currentScene = 'SCENE_0'
-# pocketItems  = ()
-# passedScenes = ()
-# availActions = ()
-# say = print
-# say ("Добро пожаловать в игру $game{NAME}! ")
-# say ("Автор игры: $game{AUTHOR} ")
-# say ("Нажмите любую клавишу, чтобы начать. ")
-# c = input()
-
-# pause()
-# show_scene()
-# while not game_end:
-#     GameAction()
-
-# print("Конец.\n\n")
-
-
-# def pause():
-#     for _ in range(5):
-#         time.sleep(0.1)
-#         print(".", end="", flush=True)
-
-# def show_scene():
-#     Disappear()
-#     ShowDescription()
-#     print('\n')
-#     ShowPocket()
-#     print('\n')
-#     ShowActions()
-
-# def GameAction():
-#     if not game[currentScene]["ACTIONS"]:
-#         game_end = True
-#         return
-#     act = GetAction()
-#     if act < 0:
-#         return
-#     effect = act["EFFECT"]
-#     if effect["COLLECT"]:
-#         pocketItems.append(effect["COLLECT"])
-#     if effect["DISPOSE"]:
-#         pocketItems = [item for item in pocketItems if item != effect["DISPOSE"]]
-#     if effect["ALERT"]:
-#         Disappear()
-#         print(effect["ALERT"])
-#         c = input()
-#         ShowScene()
-#     if effect["GO"]:
-#         if currentScene != effect["GO"]:
-#             passedScenes.append(currentScene)
-#             currentScene = effect["GO"]
-#             ShowScene()
-
-
-# def GetAction():
-#     autocomplist = []
-#     for action in availActions:
-#         autocomplist.append(action["NAME"])
-#     c = input("> ")
-#     while c not in autocomplist:
-#         c = input("> ")
-#     Pause()
-#     print("> ")
-#     for action in availActions:
-#         if c == action["NAME"]:
-#             return action
-#     return -1
-
-# def ShowDescription():
-#     text = game[currentScene]["DESCRIPTION"]
-#     text = text.replace("\n", "|")
-#     text = " ".join(text.split())
-#     text = text.replace("|", "\n ")
-#     print(text)
-
-# def ShowPocket():
-#     if not game[currentScene]["ACTIONS"]:
-#         return
-#     text = "У тебя есть:  "
-#     if len(pocketItems) < 0:
-#         text += "ничего, "
-#     else:
-#         for i in pocketItems:
-#             text += i + ", "
-#     print(text[:-2])
-
-# def ShowActions():
-#     if not game[currentScene]["ACTIONS"]:
-#         return
-#     text = "Что будешь делать? ("
-#     whenOk = True
-#     act_array = game[currentScene]["ACTIONS"]
-#     availActions = []
-#     for action in act_array:
-#         whenOk = True
-#         if action["WHEN"]:
-#             if action["WHEN"]["HAVE"]:
-#                 whenOk &= action["WHEN"]["HAVE"] in pocketItems
-#             if action["WHEN"]["LACK"]:
-#                 whenOk &= action["WHEN"]["LACK"] not in pocketItems
-#             if action["WHEN"]["PASSED"]:
-#                 whenOk &= currentScene in passedScenes
-#             if action["WHEN"]["MISSED"]:
-#                 whenOk &= currentScene not in passedScenes
-#         if whenOk:
-#             text += action["NAME"] + ", "
-#             availActions.append(action)
-#     print(text[:-2] + ")\n")
-
-# def Pause():
-#     for i in range(6):
-#         time.sleep(0.1)
-#         print(".", end="")
-#     print()
-
-# def Disappear():
-#     print("\033[2J")
-
-import time
 import json
+import time
 
+with open("quest.json", encoding="utf-8") as myfile:
+    quest = json.load(myfile)
 
-game_end = 0
-currentScene = "SCENE_0"
-pocketItems = []
-passedScenes = []
-availActions = []
-say = print
+greeting = f"""
+Добро пожаловать в игру '{quest["info"]["name"]}'!
+Авторы игры: {quest["info"]["author"]},
+Версия: {quest["info"]["version"]}
+"""
+print(greeting)
+current_scene = "start"
 
+def show_description(scene):
+    description = quest["game"][scene]["description"]
+    print(description)
 
-def pause():
-    for _ in range(5):
-        time.sleep(0.1)
-        print(".", end="", flush=True)
+def is_game_end(scene):
+    return "ending" in quest["game"][scene]
 
+def show_actions(scene):
+    print("Что будете делать?")
+    for action in quest["game"][scene]["actions"]:
+        print(" -> ", action["name"])
+    print()
 
+def get_user_action():
+    while True:
+        user_in = input()
+        if user_in:
+            return user_in
 
+def check_action(scene, action_name):
+    for allowed_action in quest["game"][scene]["actions"]:
+        if action_name == allowed_action["name"]:
+            return allowed_action["effect"]
 
-def GameAction():
-    global game_end, currentScene, pocketItems, passedScenes, availActions
+def perform_action(effect):
+    global current_scene
+    if "go" in effect:
+        current_scene = effect["go"]
+    elif "have" in effect:
+        print(f"Вы получили: {effect['have']}")
 
-    if not game[currentScene]["ACTIONS"]:
-        game_end = True
-        return
-
-    act = GetAction()
-    if act < 0:
-        return
-    effect = act["EFFECT"]
-    if effect["COLLECT"]:
-        pocketItems.append(effect["COLLECT"])
-    if effect["DISPOSE"]:
-        pocketItems = [item for item in pocketItems if item != effect["DISPOSE"]]
-    if effect["ALERT"]:
-        Disappear()
-        print(effect["ALERT"])
-        c = input()
-        ShowScene()
-    if effect["GO"]:
-        if currentScene != effect["GO"]:
-            passedScenes.append(currentScene)
-            currentScene = effect["GO"]
-            ShowScene()
-
-
-def GetAction():
-    global availActions
-
-    autocomplist = [action["NAME"] for action in availActions]
-    c = input("> ")
-    while c not in autocomplist:
-        c = input("> ")
-    pause()
-    print("> ")
-    for action in availActions:
-        if c == action["NAME"]:
-            return action
-    return -1
-
-
-def ShowDescription():
-    text = game[currentScene]["DESCRIPTION"]
-    text = text.replace("\n", "|")
-    text = " ".join(text.split())
-    text = text.replace("|", "\n ")
-    print(text)
-
-
-def ShowPocket():
-    if not game[currentScene]["ACTIONS"]:
-        return
-    text = "У тебя есть:  "
-    if len(pocketItems) < 1:
-        text += "ничего, "
+while True:
+    time.sleep(3)
+    line = '-' * 50
+    print(f"\n {line} \n")
+    show_description(current_scene)
+    if is_game_end(current_scene):
+        print("Игра завершена.")
+        break
+    show_actions(current_scene)
+    action = get_user_action()
+    effect = check_action(current_scene, action)
+    if effect:
+        perform_action(effect)
     else:
-        text += ", ".join(pocketItems) + ", "
-    print(text[:-2])
-
-
-def ShowActions():
-    if not game[currentScene]["ACTIONS"]:
-        return
-    text = "Что будешь делать? ("
-    whenOk = True
-    act_array = game[currentScene]["ACTIONS"]
-    availActions = []
-    for action in act_array:
-        whenOk = True
-        if action["WHEN"]:
-            if action["WHEN"]["HAVE"]:
-                whenOk &= action["WHEN"]["HAVE"] in pocketItems
-            if action["WHEN"]["LACK"]:
-                whenOk &= action["WHEN"]["LACK"] not in pocketItems
-            if action["WHEN"]["PASSED"]:
-                whenOk &= currentScene in passedScenes
-            if action["WHEN"]["MISSED"]:
-                whenOk &= currentScene not in passedScenes
-        if whenOk:
-            text += action["NAME"] + ", "
-            availActions.append(action)
-    print(text[:-2] + ")\n")
-
-
-def Disappear():
-    print("\033[2J")
-
-def show_scene():
-    Disappear()
-    ShowDescription()
-    print('\n')
-    ShowPocket()
-    print('\n')
-    ShowActions()
-
-# Код игры
-
-with open('kolobok.json', 'r', encoding='utf-8') as fileName:
-    if not fileName:
-        print("Не указан файл игры.")
-        exit(1)
-
-# Ваш код продолжается здесь
-
-game = {}  # Добавьте инициализацию переменной game
-
-say("Добро пожаловать в игру $game{NAME}!")
-say("Автор игры: $game{AUTHOR}")
-say("Нажмите любую клавишу, чтобы начать.")
-c = input()
-
-pause()
-show_scene()
-while not game_end:
-    GameAction()
-
-print("Конец.\n\n")
+        print("Такого действия нет. Выберите другое")

@@ -133,7 +133,7 @@ sub ShowActions {
 	my $whenOk;
 	my $act_array = $game{$currentScene}{ACTIONS};
 	@availActions = ();
-	
+
 	for my $action (@$act_array) {
 		$whenOk = 1;
 		if ($action->{WHEN}) {
@@ -147,11 +147,11 @@ sub ShowActions {
 			if ($action->{WHEN}{PASSED})
 				{ $whenOk &= ($currentScene ~~ @passedScenes); }
 
-			if ($action->{WHEN}{MISSED}) 
+			if ($action->{WHEN}{MISSED})
 				{ $whenOk &= !($currentScene ~~ @passedScenes); }
 		}
 
-		if ($whenOk) { 
+		if ($whenOk) {
 			$text .= $action->{NAME} . ", ";
 			push @availActions, $action;
 		}
