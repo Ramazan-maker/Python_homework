@@ -7,6 +7,8 @@ def quick_sort(s,key=None):
     center = [i for i in s if key_func(i) == key_func(elem)]
     right = list (filter(lambda x: key_func(x)> key_func(elem),s))
     return quick_sort(left) + center + quick_sort(right)
+#VN: в рекурсивном   ^^^^^^  вызове передавать   ^^^^^^^  вторым аргументом key_func нужно обязательно!
+# Иначе будет отсортировано неправильно. Попробуйте на разных списках, и увидите
 
 print('Without key: ',quick_sort([7,6,10,5,9,8,7,7,3,4]))
 

@@ -1,5 +1,6 @@
 
 def selectionSort(array, size,key=None):
+    #VN: то же самое    ^^^^^^ размер списка функция в состоянии узнать сама: size = len(array)
     for step in range(size):
         min_idx = step
 
@@ -13,6 +14,8 @@ def selectionSort(array, size,key=None):
         # put min at the correct position
         (array[step], array[min_idx]) = (array[min_idx], array[step])
 
+
+#VN: здесь аргумент key никак не используется, задача не решена
 
 data = [-2, 45, 0, 11, -9]
 size = len(data)
