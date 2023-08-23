@@ -8,6 +8,7 @@ def quick_sort(s,key=None):
     right = list (filter(lambda x: key_func(x)> key_func(elem),s))
     return quick_sort(left,key) + center + quick_sort(right,key)
 
+
 print('Without key: ',quick_sort([7,6,10,5,9,8,7,7,3,4]))
 
 print("with key: ",quick_sort([7,6,10,5,9,8,7,7,3,4],key=lambda x:x%2))

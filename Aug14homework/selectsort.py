@@ -1,4 +1,6 @@
-def selectionSort(array, key=None):
+
+
+def selectionSort(array,key=None):
     size = len(array)
     for step in range(size):
         min_idx = step
@@ -12,6 +14,7 @@ def selectionSort(array, key=None):
 
         # Swap min element with the first element of the unsorted part
         array[step], array[min_idx] = array[min_idx], array[step]
+
 
 
 data_with_key = [21, 45, 27, 11, 9]
