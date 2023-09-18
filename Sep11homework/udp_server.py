@@ -18,7 +18,7 @@ class UDP_Server:
             print(f'получено сообщение от {addr}: {message}')
             response = 'OK'
             self.my_socket.sendto(response.encode(), addr)
-
+            # есть такая ошибка что сервер не получает OK
     def stop(self):
         self.is_running = False
         self.my_socket.close()
