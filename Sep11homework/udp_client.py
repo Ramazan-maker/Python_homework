@@ -27,5 +27,5 @@ if __name__ == "__main__":
     udp_client.send(message_to_send)
 
     response = udp_client.recieve()
-    print(f"Получен ответ от сервера")
+    print(f"Получен ответ от сервера {response}")
     udp_client.close()

@@ -16,9 +16,11 @@ class UDP_Server:
             data, addr = self.my_socket.recvfrom(1024)
             message = data.decode(encoding="UTF-8")
             print(f'получено сообщение от {addr}: {message}')
+            if message == 'close':
+                self.stop()
+                break
             response = 'OK'
             self.my_socket.sendto(response.encode(), addr)
-            # есть такая ошибка что сервер не получает OK
     def stop(self):
         self.is_running = False
         self.my_socket.close()
