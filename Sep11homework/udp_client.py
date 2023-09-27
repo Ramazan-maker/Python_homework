@@ -18,11 +18,8 @@ class UDP_Client:
         self.my_socket.close()
 
 if __name__ == "__main__":
-    server_address = 'localhost'
-    server_port = 9900
 
-    udp_client = UDP_Client(server_address,server_port)
-
+    udp_client = UDP_Client('localhost', 1)
     message_to_send = input('Введите что-хотите отправить серверу: ')
     udp_client.send(message_to_send)
 

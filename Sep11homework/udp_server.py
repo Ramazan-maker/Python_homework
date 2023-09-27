@@ -27,6 +27,6 @@ class UDP_Server:
         print("Порт закрыт")
 
 if __name__ == "__main__":
-    port_number = 9900
-    udp_server = UDP_Server(port_number)
+
+    udp_server = UDP_Server(1)
     udp_server.start()
