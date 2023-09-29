@@ -1,0 +1,5 @@
+Hello, world! This is an example text for word replacement.
+In this text, we will replace words:
+- Hello with Hi
+- world with universe
+- example with demonstration
