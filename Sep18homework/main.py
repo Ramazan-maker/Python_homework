@@ -1,5 +1,5 @@
-from udp_server import UDP_Server
-from udp_client import UDP_Client
+from udp_server.udp_server import UDP_Server
+from udp_client.udp_client import UDP_Client
 import threading
 
 server = UDP_Server(1)

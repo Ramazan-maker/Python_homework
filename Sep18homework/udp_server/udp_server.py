@@ -2,7 +2,7 @@ import socket
 
 
 class UDP_Server:
-    def __init__(self,port_number):
+    def __init__(self, port_number):
         self.port_number = port_number
         self.my_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.server_address = ('localhost', port_number)
@@ -27,6 +27,5 @@ class UDP_Server:
         print("Порт закрыт")
 
 if __name__ == "__main__":
-    port_number = 9900
-    udp_server = UDP_Server(port_number)
+    udp_server = UDP_Server(1)
     udp_server.start()
