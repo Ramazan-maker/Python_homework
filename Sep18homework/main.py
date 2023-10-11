@@ -1,23 +1,15 @@
-from udp_server.udp_server import UDP_Server
-from udp_client.udp_client import UDP_Client
-import threading
+import sys
+from PyQt6.QtWidgets import QApplication
+from router import Router
 
-server = UDP_Server(1)
 
-server_thread = threading.Thread(target=server.start)
-server_thread.start()
 
-client = UDP_Client('localhost', 1)
+if __name__ == "__main__":
 
-while True:
-    my_message = input('Введите сообщение:')
-    if my_message != 'exit':
-        client.send(my_message)
+    app = QApplication(sys.argv)
 
-        response = client.receive()
-        print(f'Пришел ответ от сервера:{response}')
-    else:
-        server.stop()
-        server_thread.join()
-        client.close()
-        break
+    router = Router()
+    router.start()
+    router.udp_sender.send("Hello, UDP Server!", "Info")
+
+    app.exec()
